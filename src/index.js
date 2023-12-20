@@ -19,6 +19,7 @@ import ActorPage from "./pages/actorDetailsPage";
 import LoginPage from "./pages/loginPage";
 import SignUpPage from "./pages/signUpPage";
 import AuthContextProvider from "./contexts/authContext";
+import ProtectedRoutes from "./protectedRoutes";
 
 
 
@@ -42,7 +43,9 @@ const App = () => {
         <SiteHeader />
         <MoviesContextProvider>
         <Routes>
+          <Route element = {<ProtectedRoutes/>}>
           <Route path="/movies/favorites" element={<FavoriteMoviesPage />} />
+          </Route>
           {/* <Route path="/movies/upcoming" element={<UpcomingMoviesPage />} /> */}
           <Route path="/reviews/:id" element={ <MovieReviewPage /> } />
           <Route path="/movies/:id" element={<MoviePage />} />
