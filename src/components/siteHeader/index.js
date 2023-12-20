@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -11,13 +11,14 @@ import { useNavigate } from "react-router-dom";
 import { styled } from '@mui/material/styles';
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { AuthContext } from "../../contexts/authContext";
 
 const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
 
 const SiteHeader = ({ history }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
-
+  const context = useContext(AuthContext);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   
@@ -30,12 +31,27 @@ const SiteHeader = ({ history }) => {
     { label: "Popular", path: "/movies/popular" },
     { label: "Top Rated", path: "/movies/topRated" },
     { label: "Actors", path: "/actor" },
-    // { label: "Option 7", path: "/movies/popular" },
+
+    ...(context.isAuthenticated
+      ? [
+          { label: `Welcome ${context.userName}`, isWelcomeMessage: true },
+          { label: "Sign Out", path: "/signout"}
+        ]
+      : [{ label: "Login", path: "/login" }]),
   ];
 
+  //Signout handling for user
   const handleMenuSelect = (pageURL) => {
-    navigate(pageURL, { replace: true });
+    console.log("handleMenuSelect called");
+    if (pageURL === "/signout") {
+      context.signout();
+      navigate("/", { replace: true });
+    } else {
+      console.log("Navigating to:", pageURL);
+      navigate(pageURL, { replace: true });
+    }
   };
+    // { label: "Option 7", path: "/movies/popular" },
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -87,15 +103,25 @@ const SiteHeader = ({ history }) => {
               </Menu>
             </>
           ) : (
+            //Adding custom welcome message for indivdual user
             <>
               {menuOptions.map((opt) => (
-                <Button
-                  key={opt.label}
-                  color="inherit"
-                  onClick={() => handleMenuSelect(opt.path)}
-                >
-                  {opt.label}
-                </Button>
+                <React.Fragment key={opt.label}>
+                  {opt.isWelcomeMessage ? (
+                    <Typography variant="h6" sx={{ flexGrow: 1 }}>
+                      {opt.label}
+                    </Typography>
+                  ) : (
+                    !opt.isWelcomeMessage && (
+                      <Button
+                        color="inherit"
+                        onClick={() => handleMenuSelect(opt.path)}
+                      >
+                        {opt.label}
+                      </Button>
+                    )
+                  )}
+                </React.Fragment>
               ))}
             </>
           )}
