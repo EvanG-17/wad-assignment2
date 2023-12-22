@@ -104,22 +104,25 @@ const SiteHeader = ({ history }) => {
             </>
           ) : (
             //Adding custom welcome message for indivdual user
-            <>
+           <>
               {menuOptions.map((opt) => (
                 <React.Fragment key={opt.label}>
-                  {opt.isWelcomeMessage ? (
-                    <Typography variant="h6" sx={{ flexGrow: 1 }}>
+                  {!opt.isWelcomeMessage && (
+                    <Button
+                      color="inherit"
+                      onClick={() => handleMenuSelect(opt.path)}
+                    >
+                      {opt.label}
+                    </Button>
+                  )}
+                </React.Fragment>
+              ))}
+              {menuOptions.map((opt) => (
+                <React.Fragment key={opt.label}>
+                  {opt.isWelcomeMessage && (
+                    <Typography variant="h6" sx={{ flexGrow: 1, textAlign: 'right' }}>
                       {opt.label}
                     </Typography>
-                  ) : (
-                    !opt.isWelcomeMessage && (
-                      <Button
-                        color="inherit"
-                        onClick={() => handleMenuSelect(opt.path)}
-                      >
-                        {opt.label}
-                      </Button>
-                    )
                   )}
                 </React.Fragment>
               ))}

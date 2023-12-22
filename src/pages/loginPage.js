@@ -1,49 +1,3 @@
-// import React, { useContext, useState } from "react";
-// import { Navigate, useLocation } from "react-router-dom";
-// import { AuthContext } from '../contexts/authContext';
-// import { Link } from "react-router-dom";
-
-
-// //Gotten from lab work 
-// const LoginPage = props => {
-//     const context = useContext(AuthContext);
-
-//     const [userName, setUserName] = useState("");
-//     const [password, setPassword] = useState("");
-
-//     const login = () => {
-//         context.authenticate(userName, password);
-//     };
-
-//     let location = useLocation();
-
-//     // Set 'from' to path where browser is redirected after a successful login - either / or the protected path user requested
-//     const { from } = location.state ? { from: location.state.from.pathname } : { from: "/" };
-
-//     if (context.isAuthenticated === true) {
-//         return <Navigate to={from} />;
-//     }
-
-//     return (
-//         <>
-//             <h2>Login page</h2>
-//             <p>You must log in to view the protected pages </p>
-//             <input id="username" placeholder="user name" onChange={e => {
-//                 setUserName(e.target.value);
-//             }}></input><br />
-//             <input id="password" type="password" placeholder="password" onChange={e => {
-//                 setPassword(e.target.value);
-//             }}></input><br />
-//             {/* Login web form  */}
-//             <button onClick={login}>Log in</button>
-//             <p>Not Registered?
-//                 <Link to="/signup">Sign Up!</Link></p>
-//         </>
-//     );
-// };
-
-// export default LoginPage;
-
 import React, { useContext, useState } from "react";
 import { Navigate, useLocation, Link } from "react-router-dom";
 import { AuthContext } from '../contexts/authContext';
@@ -52,6 +6,7 @@ import Button from "@mui/material/Button";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+
 
 const LoginPage = () => {
     const context = useContext(AuthContext);
@@ -74,9 +29,17 @@ const LoginPage = () => {
             display="flex"
             justifyContent="center"
             alignItems="center"
-            height="100vh"
+            minHeight="100vh"
         >
-            <Paper elevation={3} style={{ padding: "20px", width: "300px" }}>
+            <Paper elevation={3} style={{
+                display: "flex",  
+                flexDirection: "column",  
+                alignItems: "center",  
+                padding: "20px",
+                width: "400px",
+                boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+                border: "2px solid black",
+            }}>
                 <Typography variant="h5" gutterBottom>
                     Login
                 </Typography>
@@ -98,7 +61,8 @@ const LoginPage = () => {
                 <Button
                     variant="contained"
                     fullWidth
-                    colour="primary"
+                    color="primary"
+                    style={{ backgroundColor: "red", marginTop: "10px" }}
                     onClick={login}
                 >
                     Log in
@@ -111,7 +75,12 @@ const LoginPage = () => {
     );
 };
 
+
+
+
 export default LoginPage;
+
+
 
 
 
