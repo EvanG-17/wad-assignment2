@@ -49,3 +49,14 @@ Protected routes are Favourites, Upcoming and Popular.
 Describe how you integrated your React app with the API. List the views that use your Web API instead of the TMDB API. Describe any other updates to the React app from Assignment One.
 Views that use Web API are login/signup 
 
+## UI Design
+
+![alt text](https://github.com/EvanG-17/wad-assignment2/blob/main/images/login.png)
+Login Page.
+
+![alt text](https://github.com/EvanG-17/wad-assignment2/blob/main/images/signup.png)
+Signup Page.
+
+![alt text](https://github.com/EvanG-17/wad-assignment2/blob/main/images/protected%20route%20example.png)
+Protect route example displaying login page.
+
